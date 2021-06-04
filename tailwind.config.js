@@ -11,6 +11,10 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      backgroundImage: (theme) => ({
+        'register-image': "url('/landing-background-image.jpeg')",
+        // 'footer-texture': "url('/img/footer-texture.png')",
+      }),
       // colors: {
       //   gray: colors.coolGray,
       //   blue: colors.lightBlue,

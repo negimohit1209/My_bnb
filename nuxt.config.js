@@ -22,6 +22,9 @@ export default {
     ],
     link: [{rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}],
   },
+  generate: {
+    fallback: true,
+  },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ['~/assets/main.css'],
@@ -96,6 +99,7 @@ export default {
           info: '#2196F3',
           success: '#4CAF50',
           warning: '#FFC107',
+          cardColor: '#FFF',
         },
         dark: {
           primary: '#C582FF',
@@ -105,6 +109,7 @@ export default {
           info: '#2196F3',
           success: '#4CAF50',
           warning: '#FFC107',
+          cardColor: '#000',
         },
       },
     },

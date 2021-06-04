@@ -10,7 +10,7 @@
   <div>
     <section
       id="image"
-      class="h-screen bg-no-repeat bg-clip-border bg-cover"
+      class="h-screen bg-no-repeat bg-clip-border bg-cover secondary bg-blend-hard-light"
       style="background-image: url('/landing-background-image.jpeg')"
     >
       <div class="w-3/4 h-full m-auto p-2 flex flex-wrap content-center">
