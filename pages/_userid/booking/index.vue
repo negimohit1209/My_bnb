@@ -22,7 +22,7 @@
                 </v-toolbar>
               </template>
               <template #[`item.actions`]="{item}">
-                <v-icon class="mr-2" @click="editItem(item)">
+                <v-icon class="mr-2" @click="routeTo(item)">
                   mdi-chevron-right
                 </v-icon>
               </template>
@@ -106,6 +106,9 @@ export default {
     },
     formatDate(date) {
       return getFormattedDate(date)
+    },
+    routeTo(item) {
+      this.$router.push(`${this.$route.path}/${item.id}`)
     },
   },
 }

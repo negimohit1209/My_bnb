@@ -5,6 +5,7 @@
       color="transparent"
       elevate-on-scroll
       scroll-target="#scrolling-techniques-7"
+      class="md:px-8"
     >
       <v-toolbar-title class="cursor-pointer" @click="routeTo('/')">
         <img class="h-12 w-12" src="~/assets/mybnblogo.png" alt="John" />
@@ -49,20 +50,41 @@
             </v-list-item>
             <v-divider></v-divider> -->
             <v-list-item-group color="primary">
-              <v-list-item>
+              <v-list-item
+                @click="routeTo(`/${currentLoggedInUser.uid}/booking`)"
+              >
+                <v-list-item-content>
+                  <v-list-item-title v-text="`My Bookings`"></v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item
+                @click="routeTo(`/${currentLoggedInUser.uid}/booking-requests`)"
+              >
                 <v-list-item-content>
                   <v-list-item-title
-                    @click="routeTo('/account-settings')"
-                    v-text="`Account`"
+                    v-text="`Booking requests`"
                   ></v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
-              <v-list-item>
+              <v-list-item
+                @click="routeTo(`/${currentLoggedInUser.uid}/notification`)"
+              >
                 <v-list-item-content>
                   <v-list-item-title
-                    @click="logout"
-                    v-text="`Logout`"
+                    v-text="`Notifications`"
                   ></v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item
+                @click="routeTo(`/${currentLoggedInUser.uid}/account-settings`)"
+              >
+                <v-list-item-content>
+                  <v-list-item-title v-text="`Account`"></v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-content @click="logout">
+                  <v-list-item-title v-text="`Logout`"></v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
             </v-list-item-group>

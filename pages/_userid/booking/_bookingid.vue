@@ -63,7 +63,7 @@ export default {
         createdat: firebaseTimestamp(),
         read: false,
         receiverid: this.selectedBooking.guestid,
-        routeto: `/${this.selectedBooking.guestid}/booking/${this.selectedBooking.id}`,
+        routeto: `${this.selectedBooking.guestid}/booking/${this.selectedBooking.id}`,
         sender: {
           id: this.selectedBooking.ownerid,
           displaypicture: this.selectedBooking.owner.displaypicture || null,
@@ -82,7 +82,7 @@ export default {
           message: `Your Booking is Confirmed`,
         }
       }
-      if (type === 'failed') {
+      if (type === 'faliled') {
         transaction = {
           ...transaction,
           comment: `Refund for booking: ${this.selectedBooking.id}`,

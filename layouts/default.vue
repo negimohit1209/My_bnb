@@ -41,7 +41,7 @@
         <v-icon>mdi-menu</v-icon>
       </v-btn>
     </v-app-bar> -->
-    <v-app-bar color="primary" dark class="md:px-24" fixed>
+    <v-app-bar color="primary" dark class="md:px-8" fixed>
       <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
 
       <v-toolbar-title class="cursor-pointer" @click="routeTo('/')"
@@ -87,48 +87,46 @@
             </v-list-item>
             <v-divider></v-divider>
             <v-list-item-group color="primary">
-              <v-list-item>
+              <v-list-item
+                @click="routeTo(`/${currentLoggedInUser.uid}/booking`)"
+              >
                 <v-list-item-content>
-                  <v-list-item-title
-                    @click="routeTo(`/${currentLoggedInUser.uid}/booking`)"
-                    v-text="`My Bookings`"
-                  ></v-list-item-title>
+                  <v-list-item-title v-text="`My Bookings`"></v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
-              <v-list-item>
+              <v-list-item
+                @click="routeTo(`/${currentLoggedInUser.uid}/booking-requests`)"
+              >
                 <v-list-item-content>
                   <v-list-item-title
-                    @click="
-                      routeTo(`/${currentLoggedInUser.uid}/booking-requests`)
-                    "
                     v-text="`Booking requests`"
                   ></v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
-              <v-list-item>
+              <v-list-item
+                @click="routeTo(`/${currentLoggedInUser.uid}/notification`)"
+              >
                 <v-list-item-content>
                   <v-list-item-title
-                    @click="routeTo(`/${currentLoggedInUser.uid}/notification`)"
                     v-text="`Notifications`"
                   ></v-list-item-title>
                 </v-list-item-content>
+                <!-- <v-list-item-avatar> -->
+                <v-avatar color="secondary" size="7"
+                  ><span class="text-xs"></span
+                ></v-avatar>
+                <!-- </v-list-item-avatar> -->
               </v-list-item>
-              <v-list-item>
+              <v-list-item
+                @click="routeTo(`/${currentLoggedInUser.uid}/account-settings`)"
+              >
                 <v-list-item-content>
-                  <v-list-item-title
-                    @click="
-                      routeTo(`/${currentLoggedInUser.uid}/account-settings`)
-                    "
-                    v-text="`Account`"
-                  ></v-list-item-title>
+                  <v-list-item-title v-text="`Account`"></v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
               <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title
-                    @click="logout"
-                    v-text="`Logout`"
-                  ></v-list-item-title>
+                <v-list-item-content @click="logout">
+                  <v-list-item-title v-text="`Logout`"></v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
             </v-list-item-group>
@@ -162,7 +160,7 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 export default {
   data() {
     return {
@@ -189,15 +187,29 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['isLoading', 'currentLoggedInUser']),
+    ...mapGetters({
+      isLoading: 'isLoading',
+      currentLoggedInUser: 'currentLoggedInUser',
+      notificationCount: 'notification/getNotReadNotificationCount',
+    }),
   },
   watch: {
     switch1(newValue, _) {
       this.$vuetify.theme.dark = newValue
     },
   },
-  mounted() {},
+  async mounted() {
+    if (this.currentLoggedInUser && this.currentLoggedInUser.uid) {
+      await this.getNotification({
+        where: 'receiverid',
+        value: this.currentLoggedInUser.uid,
+      })
+    }
+  },
   methods: {
+    ...mapActions({
+      getNotification: 'notification/getAll',
+    }),
     async logout() {
       await this.$fire.auth.signOut()
       this.$router.push('/login')

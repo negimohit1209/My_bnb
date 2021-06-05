@@ -27,7 +27,11 @@ export default {
       }
       if (method.name === 'create') {
         transaction = {...transaction, bookingid: book.id}
-        notification = {...notification, type: {name: 'booking', id: book.id}}
+        notification = {
+          ...notification,
+          type: {name: 'booking', id: book.id},
+          routeto: `${notification.routeto}${book.id}`,
+        }
       }
       await transactionRef.add(transaction)
       await notificationRef.add(notification)

@@ -13,6 +13,13 @@ export default {
       return []
     }
   },
+  getNotReadNotificationCount: (state) => {
+    let count = 0
+    state.list.forEach((notification) => {
+      if (!notification.read) count++
+    })
+    return count
+  },
   getSelectedNotification: (state) => {
     try {
       return state.selectedNotification

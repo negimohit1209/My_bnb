@@ -494,7 +494,7 @@ export default {
       const notification = {
         read: false,
         receiverid: this.getSelectedProperty.ownerid,
-        routeto: '/property',
+        routeto: `/${this.getSelectedProperty.ownerid}/booking-requests/`,
         sender: {
           id: this.currentUser.uid,
           displaypicture: this.currentUser.displaypicture || null,

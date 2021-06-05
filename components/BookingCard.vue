@@ -144,7 +144,14 @@
         </div>
       </div>
     </div>
-    <div v-if="booking.status == 'pending'" class="mt-4">
+    <div
+      v-if="
+        booking.status == 'pending' &&
+        currentUser &&
+        currentUser.uid === booking.ownerid
+      "
+      class="mt-4"
+    >
       <v-btn color="primary" small @click="actionClicked('confirmed')">
         Confirm Booking
       </v-btn>
@@ -156,7 +163,9 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 import {getFormattedDate} from '../Utils/helperFunctions'
+
 export default {
   name: 'AccountSettingCard',
   props: {
@@ -164,6 +173,11 @@ export default {
       type: Object,
       default: () => {},
     },
+  },
+  computed: {
+    ...mapGetters({
+      currentUser: 'currentLoggedInUser',
+    }),
   },
   methods: {
     formatDate(date) {
