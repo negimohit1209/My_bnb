@@ -111,7 +111,7 @@
 <script>
 import {mapGetters} from 'vuex'
 export default {
-  layout: 'authLayout',
+  layout: 'landingLayout',
   data: () => ({
     valid: false,
     // firstname: '',

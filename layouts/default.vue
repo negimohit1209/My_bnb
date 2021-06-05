@@ -45,8 +45,8 @@
       <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
 
       <v-toolbar-title class="cursor-pointer" @click="routeTo('/')"
-        >My Bnb</v-toolbar-title
-      >
+        ><img class="h-12 w-12" src="~/assets/mybnblogo.png" alt="John"
+      /></v-toolbar-title>
 
       <v-spacer></v-spacer>
       <div>

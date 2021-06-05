@@ -10,9 +10,16 @@
       </v-img>
       <div class="col-span-1 sm:col-span-3">
         <!-- <div class="text-2xl">{{ booking.property.name }}</div> -->
-        <div class="w-full px-4 flex flex-wrap content-between h-full">
+        <div class="w-full sm:px-4 flex flex-wrap content-between h-full">
           <div class="w-full">
-            <div class="text-xl">{{ booking.property.name }}</div>
+            <div class="text-xl flex flex-wrap justify-between">
+              <span>{{ booking.property.name }}</span>
+              <span
+                ><v-chip small :color="getColor(booking.status)">{{
+                  booking.status.toUpperCase()
+                }}</v-chip></span
+              >
+            </div>
             <div class="w-full">
               <div class="text-sm font-light">
                 {{ booking.property.propertytype.primary }} in
@@ -74,6 +81,7 @@
           <div class="font-bold">{{ booking.guest.email }}</div>
         </div>
       </div>
+      <div class="sm:hidden"><v-divider></v-divider></div>
       <div class="sm:col-span-2">
         <div>Booking Details</div>
         <div class="flex flex-wrap justify-between text-sm">
@@ -103,21 +111,47 @@
           </div>
         </div>
       </div>
+      <div class="sm:col-span-4"><v-divider></v-divider></div>
+      <div class="sm:col-span-2">
+        <div>Price details</div>
+        <div
+          v-for="(rent, index) in booking.rentDetails"
+          :key="index"
+          class="flex flex-wrap justify-between text-sm"
+        >
+          <div>
+            <span>{{ rent.name }}</span>
+            <span>{{
+              rent.chargable == 'daily'
+                ? `(${rent.amount} x ${booking.days})`
+                : ''
+            }}</span>
+          </div>
+          <span class="font-bold"
+            >{{
+              rent.chargable == 'daily'
+                ? `${rent.amount * booking.days}`
+                : `${rent.amount}`
+            }}
+            coins</span
+          >
+        </div>
+        <div class="flex flex-wrap justify-between font-bold text-lg">
+          <div>
+            <span>{{ booking.totalAmount.name }}</span>
+          </div>
+          <span>{{ booking.totalAmount.amount }} coins</span>
+        </div>
+      </div>
     </div>
-
-    <!-- <v-card-subtitle class="pb-0"> Number 10 </v-card-subtitle>
-
-    <v-card-text class="text--primary">
-      <div>Whitehaven Beach</div>
-
-      <div>Whitsunday Island, Whitsunday Islands</div>
-    </v-card-text> -->
-
-    <v-card-actions>
-      <v-btn color="orange" text> Share </v-btn>
-
-      <v-btn color="orange" text> Explore </v-btn>
-    </v-card-actions>
+    <div v-if="booking.status == 'pending'" class="mt-4">
+      <v-btn color="primary" small @click="actionClicked('confirmed')">
+        Confirm Booking
+      </v-btn>
+      <v-btn color="error" small @click="actionClicked('failed')">
+        Decline
+      </v-btn>
+    </div>
   </v-card>
 </template>
 
@@ -134,6 +168,19 @@ export default {
   methods: {
     formatDate(date) {
       return getFormattedDate(date)
+    },
+    actionClicked(type) {
+      this.$emit('actionClicked', {type})
+    },
+    getColor(val) {
+      switch (val) {
+        case 'pending':
+          return 'warning'
+        case 'confirmed':
+          return 'success'
+        case 'failed':
+          return 'error'
+      }
     },
     getGuestsString(guests) {
       let str = ''

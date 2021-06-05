@@ -503,7 +503,10 @@ export default {
         createdat: firebaseTimestamp(),
         message: `Request to book property`,
       }
-      await this.createBooking({booking, transaction, notification})
+      const method = {
+        name: 'create',
+      }
+      await this.createBooking({booking, transaction, notification, method})
     },
   },
 }

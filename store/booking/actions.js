@@ -12,15 +12,23 @@ import {
 } from './mutations'
 
 export default {
-  async create({commit}, {booking, transaction, notification}) {
+  async create({commit}, {booking, transaction, notification, method}) {
     commit(START_LOADING, null, {root: true})
     try {
+      // if (!method) method = 'create'
       const bookingRef = this.$fire.firestore.collection(`booking`)
       const transactionRef = this.$fire.firestore.collection(`transaction`)
       const notificationRef = this.$fire.firestore.collection(`notification`)
-      const book = await bookingRef.add(booking)
-      transaction = {...transaction, bookingid: book.id}
-      notification = {...notification, type: {name: 'booking', id: book.id}}
+      let book
+      if (method.name === 'create') {
+        book = await bookingRef.add(booking)
+      } else if (method.name === 'update') {
+        book = await bookingRef.doc(booking.id).update({...booking.data})
+      }
+      if (method.name === 'create') {
+        transaction = {...transaction, bookingid: book.id}
+        notification = {...notification, type: {name: 'booking', id: book.id}}
+      }
       await transactionRef.add(transaction)
       await notificationRef.add(notification)
       showNotification(

@@ -6,7 +6,9 @@
       elevate-on-scroll
       scroll-target="#scrolling-techniques-7"
     >
-      <v-toolbar-title>My Bnb</v-toolbar-title>
+      <v-toolbar-title class="cursor-pointer" @click="routeTo('/')">
+        <img class="h-12 w-12" src="~/assets/mybnblogo.png" alt="John" />
+      </v-toolbar-title>
 
       <v-spacer></v-spacer>
       <v-menu v-if="isLoggedIn" offset-y :nudge-width="100">

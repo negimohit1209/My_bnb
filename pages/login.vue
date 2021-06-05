@@ -55,7 +55,9 @@
 <script>
 import {mapGetters} from 'vuex'
 export default {
-  layout: 'authLayout',
+  layout(_) {
+    return 'landingLayout'
+  },
   data: () => ({
     valid: false,
     model: {
