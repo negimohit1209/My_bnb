@@ -1,5 +1,7 @@
 # mybnb
 
+[Demo](https://mybnb007.netlify.app/)
+
 ## Build Setup
 
 ```bash
