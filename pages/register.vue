@@ -5,105 +5,112 @@
     >
       <!-- style="background-image: url('/landing-background-image.jpeg')" -->
 
-      <div class="max-w-xl p-2 m-auto">
-        <v-card elevation="6" color="cardColor" class="p-8 rounded-xl"
-          ><div class="p-2 text-2xl text-center mb-2">Register</div>
-          <div class="p-2">Let's get you set up</div>
-          <v-form v-model="valid">
-            <div class="flex flex-wrap">
-              <div class="w-full sm:w-1/2 px-2">
-                <v-text-field
-                  v-model="model.fname"
-                  label="First Name"
-                  required
-                  outlined
-                  dense
-                ></v-text-field>
-              </div>
-              <div class="w-full sm:w-1/2 px-2">
-                <v-text-field
-                  v-model="model.lname"
-                  label="Last Name"
-                  required
-                  outlined
-                  dense
-                ></v-text-field>
-              </div>
-              <div class="w-full sm:w-1/2 px-2">
-                <v-text-field
-                  v-model="model.username"
-                  label="User Name"
-                  required
-                  outlined
-                  dense
-                ></v-text-field>
-              </div>
-              <div class="w-full sm:w-1/2 px-2">
-                <v-text-field
-                  v-model="model.email"
-                  label="Email"
-                  required
-                  outlined
-                  dense
-                ></v-text-field>
-              </div>
-              <div class="w-full sm:w-1/2 px-2">
-                <v-text-field
-                  v-model="model.password1"
-                  :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                  :type="showPassword ? 'text' : 'password'"
-                  name="input-10-2"
-                  label="Password"
-                  hint="At least 8 characters"
-                  outlined
-                  dense
-                  :rules="[passwordRules.required]"
-                  @click:append="showPassword = !showPassword"
-                ></v-text-field>
-              </div>
-              <div class="w-full sm:w-1/2 px-2">
-                <v-text-field
-                  v-model="model.password2"
-                  :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                  :type="showPassword ? 'text' : 'password'"
-                  name="input-10-2"
-                  label="Password"
-                  hint="At least 8 characters"
-                  outlined
-                  dense
-                  :rules="[passwordRules.required]"
-                  @click:append="showPassword = !showPassword"
-                ></v-text-field>
-              </div>
-              <!-- <v-radio-group v-model="row" row>
+      <div class="max-w-5xl p-2 m-auto">
+        <v-card elevation="6" color="cardColor" class="p-8 rounded-xl">
+          <div class="md:grid md:grid-cols-3 md:gap-2">
+            <div class="flex content-center hidden md:block m-auto">
+              <img src="~assets/register.svg" />
+            </div>
+            <div class="md:col-span-2">
+              <div class="p-2 text-2xl text-center mb-2">Register</div>
+              <div class="p-2">Let's get you set up</div>
+              <v-form v-model="valid">
+                <div class="flex flex-wrap">
+                  <div class="w-full sm:w-1/2 px-2">
+                    <v-text-field
+                      v-model="model.fname"
+                      label="First Name"
+                      required
+                      outlined
+                      dense
+                    ></v-text-field>
+                  </div>
+                  <div class="w-full sm:w-1/2 px-2">
+                    <v-text-field
+                      v-model="model.lname"
+                      label="Last Name"
+                      required
+                      outlined
+                      dense
+                    ></v-text-field>
+                  </div>
+                  <div class="w-full sm:w-1/2 px-2">
+                    <v-text-field
+                      v-model="model.username"
+                      label="User Name"
+                      required
+                      outlined
+                      dense
+                    ></v-text-field>
+                  </div>
+                  <div class="w-full sm:w-1/2 px-2">
+                    <v-text-field
+                      v-model="model.email"
+                      label="Email"
+                      required
+                      outlined
+                      dense
+                    ></v-text-field>
+                  </div>
+                  <div class="w-full sm:w-1/2 px-2">
+                    <v-text-field
+                      v-model="model.password1"
+                      :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                      :type="showPassword ? 'text' : 'password'"
+                      name="input-10-2"
+                      label="Password"
+                      hint="At least 8 characters"
+                      outlined
+                      dense
+                      :rules="[passwordRules.required]"
+                      @click:append="showPassword = !showPassword"
+                    ></v-text-field>
+                  </div>
+                  <div class="w-full sm:w-1/2 px-2">
+                    <v-text-field
+                      v-model="model.password2"
+                      :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                      :type="showPassword ? 'text' : 'password'"
+                      name="input-10-2"
+                      label="Password"
+                      hint="At least 8 characters"
+                      outlined
+                      dense
+                      :rules="[passwordRules.required]"
+                      @click:append="showPassword = !showPassword"
+                    ></v-text-field>
+                  </div>
+                  <!-- <v-radio-group v-model="row" row>
               <v-radio label="Owner" value="radio-1"></v-radio>
               <v-radio label="Option 2" value="radio-2"></v-radio>
             </v-radio-group> -->
-            </div>
-            <div class="px-2">
-              <v-btn depressed color="primary" block @click="createUser"
-                >Create Account</v-btn
-              >
-              <v-btn v-if="isLoggedIn" class="mr-4" @click="logout">
-                logout
-              </v-btn>
-            </div>
+                </div>
+                <div class="px-2">
+                  <v-btn depressed color="primary" block @click="createUser"
+                    >Create Account</v-btn
+                  >
+                  <v-btn v-if="isLoggedIn" class="mr-4" @click="logout">
+                    logout
+                  </v-btn>
+                </div>
 
-            <div class="p-2 text-sm">
-              Already have an account?
-              <router-link to="/login">Login</router-link>
-            </div>
+                <div class="p-2 text-sm">
+                  Already have an account?
+                  <router-link to="/login">Login</router-link>
+                </div>
 
-            <v-container>
-              <!-- <v-btn depressed color="primary">Create Account</v-btn> -->
-              <!-- <v-btn class="mr-4" @click="createUser"> Create User </v-btn>
+                <v-container>
+                  <!-- <v-btn depressed color="primary">Create Account</v-btn> -->
+                  <!-- <v-btn class="mr-4" @click="createUser"> Create User </v-btn>
             <v-btn class="mr-4" @click="signInUser"> Sign In </v-btn>
             <v-btn v-if="isLoggedIn" class="mr-4" @click="logout">
               logout
             </v-btn> -->
-            </v-container>
-          </v-form></v-card
-        >
+                </v-container>
+              </v-form>
+            </div>
+          </div>
+        </v-card>
       </div>
     </div>
   </div>

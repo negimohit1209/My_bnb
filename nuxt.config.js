@@ -43,6 +43,7 @@ export default {
     '@nuxtjs/vuetify',
     '@nuxtjs/tailwindcss',
     '@nuxtjs/firebase',
+    '@nuxtjs/svg',
   ],
 
   firebase: {
