@@ -95,7 +95,8 @@ export default {
         light: {
           primary: '#5927E5',
           secondary: '#C582FF',
-          accent: '#1F1926',
+          accentdark: '#1F1926',
+          accentlight: '#FDF7FF',
           error: '#FF5252',
           info: '#2196F3',
           success: '#4CAF50',
@@ -105,7 +106,8 @@ export default {
         dark: {
           primary: '#C582FF',
           secondary: '#5927E5',
-          accent: '#FDF7FF',
+          accentdark: '#FDF7FF',
+          accentlight: '#1F1926',
           error: '#FF5252',
           info: '#2196F3',
           success: '#4CAF50',
