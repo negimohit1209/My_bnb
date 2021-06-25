@@ -8,6 +8,7 @@ export const SET_PROPERTY_FAIL = 'SET_PROPERTY_FAIL'
 export const SET_SELECTED_PROPERTY = 'SET_SELECTED_PROPERTY'
 export const SET_SELECTED_PROPERTY_SUCCESS = 'SET_SELECTED_PROPERTY_SUCCESS'
 export const SET_SELECTED_PROPERTY_FAIL = 'SET_SELECTED_PROPERTY_FAIL'
+export const SET_PROPERTY_FILTER = 'SET_PROPERTY_FILTER'
 
 export default {
   [SET_PROPERTY]: (state) => {
@@ -39,5 +40,8 @@ export default {
   [ADD_PROPERTY_FAIL]: (state, _) => {
     state.loading = false
     // state.property.list = payload
+  },
+  [SET_PROPERTY_FILTER]: (state, data) => {
+    state.filter = {...state.filter, ...data}
   },
 }

@@ -8,6 +8,7 @@ import {
   SET_PROPERTY_SUCCESS,
   SET_SELECTED_PROPERTY,
   SET_SELECTED_PROPERTY_SUCCESS,
+  SET_PROPERTY_FILTER,
 } from './mutations'
 
 export default {
@@ -51,23 +52,38 @@ export default {
     commit(START_LOADING, null, {root: true})
     commit(SET_SELECTED_PROPERTY)
     console.log('payload', payload)
-    const property = getters.getAllPropertyList.find(
+    let property = getters.getAllPropertyList.find(
       (property) => property.id === payload.propertyid
     )
-    if (property) {
-      commit(SET_SELECTED_PROPERTY_SUCCESS, {property})
-      commit(END_LOADING, null, {root: true})
-    } else {
+    if (!property) {
       const selectedPropertyRef = this.$fire.firestore
         .collection(`property`)
         .doc(payload.propertyid)
-      await selectedPropertyRef.onSnapshot((snapshot) => {
-        const data = snapshot.data()
-        commit(SET_SELECTED_PROPERTY_SUCCESS, {
-          property: {...data, id: payload.propertyid},
-        })
-        commit(END_LOADING, null, {root: true})
-      })
+      const propertyDoc = await selectedPropertyRef.get()
+      property = propertyDoc.data()
     }
+
+    // await selectedPropertyRef.onSnapshot((snapshot) => {
+    //   const data = snapshot.data()
+    // commit(SET_SELECTED_PROPERTY_SUCCESS, {
+    //   property: {...data, id: payload.propertyid},
+    // })
+    // commit(END_LOADING, null, {root: true})
+    // })
+    if (property.ownerid) {
+      const ownerUserRef = this.$fire.firestore
+        .collection(`users`)
+        .doc(property.ownerid)
+      const ownerUserDoc = await ownerUserRef.get()
+      property.owner = ownerUserDoc.data()
+    }
+    commit(SET_SELECTED_PROPERTY_SUCCESS, {
+      property: {...property, id: payload.propertyid},
+    })
+    commit(END_LOADING, null, {root: true})
+  },
+
+  setPropertyFilter({commit}, payload) {
+    commit(SET_PROPERTY_FILTER, payload)
   },
 }

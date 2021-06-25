@@ -34,7 +34,9 @@
             <div>
               <div class="text-xl py-1">
                 {{ getSelectedProperty.propertytype.secondary }} hosted by
-                {{ getSelectedProperty.ownerid }}
+                <span class="font-bold">{{
+                  getSelectedProperty.owner.username
+                }}</span>
               </div>
               <div>
                 <span
@@ -53,7 +55,18 @@
                 >
               </div>
             </div>
-            <div><v-avatar color="primary">PP</v-avatar></div>
+            <div>
+              <v-avatar
+                v-if="getSelectedProperty.owner.displaypicture"
+                color="primary"
+                ><img
+                  :src="getSelectedProperty.owner.displaypicture"
+                  :alt="getUsername(getSelectedProperty.owner.username)"
+              /></v-avatar>
+              <v-avatar v-else color="primary">{{
+                getUsername(getSelectedProperty.owner.username)
+              }}</v-avatar>
+            </div>
           </div>
           <v-divider></v-divider>
           <div class="flex flex-wrap justify-between my-8">
@@ -287,6 +300,9 @@ export default {
         this.bookingModel.totalAmount = {...totalAmount}
         this.showRentDetails = true
       }
+    },
+    getUsername(name) {
+      return name.toUpperCase().substring(0, 2)
     },
   },
 }

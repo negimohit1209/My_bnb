@@ -113,6 +113,14 @@ export const spaces = [
   'Gym',
 ]
 
+export const priceFilter = [
+  {name: 'upto 1000', max: 1000, min: 0},
+  {name: '1000 - 2000', max: 2000, min: 1001},
+  {name: '2000 - 4000', max: 4000, min: 2001},
+  {name: '4000 - 6000', max: 6000, min: 4001},
+  {name: 'more than 6000', min: 6001, max: 1000000},
+]
+
 export const fetchRandomProperty = () => {
   const property = {
     name: `Random Hotel-${Math.floor(Math.random() * 10000)}`,
